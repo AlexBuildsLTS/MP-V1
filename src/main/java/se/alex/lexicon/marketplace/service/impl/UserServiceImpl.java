@@ -1,5 +1,6 @@
 package se.alex.lexicon.marketplace.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -42,17 +43,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public UserDTO findByUsername(String username) {
         Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isEmpty()) {
             logger.warn("User not found with username: {}", username);
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return userOpt.get();
+        return modelMapper.map(userOpt.get(), UserDTO.class);
     }
 
     @Override
-    public User registerUser(UserDTO userDTO) {
+    public UserDTO registerUser(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername())) {
             logger.warn("Username {} is already taken", userDTO.getUsername());
             throw new IllegalArgumentException("Username is already taken.");
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
         logger.info("User {} registered successfully with ID {}", savedUser.getUsername(), savedUser.getId());
-        return savedUser;
+        return modelMapper.map(savedUser, UserDTO.class);
     }
 
     @Override
@@ -103,5 +104,15 @@ public class UserServiceImpl implements UserService {
             logger.error("Authentication exception for user {}: {}", loginRequest.getUsername(), e.getMessage());
             throw new UserNotAuthenticatedException("Authentication failed.");
         }
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

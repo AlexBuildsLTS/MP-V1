@@ -1,11 +1,18 @@
 package se.alex.lexicon.marketplace.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import se.alex.lexicon.marketplace.dto.AdvertisementDTO;
+import se.alex.lexicon.marketplace.dto.UserDTO;
 import se.alex.lexicon.marketplace.entity.Advertisement;
 import se.alex.lexicon.marketplace.entity.Category;
 import se.alex.lexicon.marketplace.entity.User;
@@ -13,12 +20,6 @@ import se.alex.lexicon.marketplace.repository.AdvertisementRepository;
 import se.alex.lexicon.marketplace.repository.CategoryRepository;
 import se.alex.lexicon.marketplace.service.AdvertisementService;
 import se.alex.lexicon.marketplace.service.UserService;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
-
 
 @Service
 public class AdvertisementServiceImpl implements AdvertisementService {
@@ -39,7 +40,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public AdvertisementDTO createAdvertisement(AdvertisementDTO advertisementDTO, String username) {
-        User user = userService.findByUsername(username);
+        UserDTO userDTO = userService.findByUsername(username);
+        User user = modelMapper.map(userDTO, User.class);
         logger.info("User {} is creating an advertisement", username);
 
         Advertisement advertisement = modelMapper.map(advertisementDTO, Advertisement.class);
@@ -69,18 +71,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         LocalDateTime validSince = LocalDateTime.now().minusDays(30);
         List<Advertisement> validAds = advertisementRepository.findAllValidAdvertisements(validSince);
         logger.info("Fetched {} valid advertisements", validAds.size());
-        List<AdvertisementDTO> collect;
-        collect = validAds.stream()
+        return validAds.stream()
                 .map(ad -> {
                     AdvertisementDTO dto = modelMapper.map(ad, AdvertisementDTO.class);
                     dto.setCategoryId(ad.getCategory().getId());
                     return dto;
                 })
-                .collect(toCollection());
-        return collect;
-    }
-
-    private Collector<? super AdvertisementDTO, Object, List<AdvertisementDTO>> toCollection( ) {
-        return null;
+                .collect(Collectors.toList());
     }
 }

@@ -1,11 +1,15 @@
 package se.alex.lexicon.marketplace.service;
 
-import se.alex.lexicon.marketplace.dto.UserDTO;
+import java.util.List;
+
 import se.alex.lexicon.marketplace.dto.LoginRequest;
+import se.alex.lexicon.marketplace.dto.UserDTO;
 import se.alex.lexicon.marketplace.entity.User;
 
 public interface UserService {
-    User registerUser(UserDTO userDTO);
+    UserDTO findByUsername(String username);
+    UserDTO registerUser(UserDTO userDTO);
     String authenticateUser(LoginRequest loginRequest);
-    User findByUsername(String username);
+    List<User> findAll();
+    User save(User user);
 }

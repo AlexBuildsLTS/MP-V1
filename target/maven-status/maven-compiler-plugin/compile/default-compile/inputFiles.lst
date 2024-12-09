@@ -10,7 +10,6 @@
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/entity/Advertisement.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/service/CategoryService.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/dto/AdvertisementDTO.java
-/home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/util/SecurityConfig.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/util/JwtUtils.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/util/JwtSecretGenerator.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/util/CustomAccessDeniedHandler.java
@@ -20,6 +19,7 @@
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/controller/AdvertisementController.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/dto/UserDTO.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/repository/CategoryRepository.java
+/home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/config/SecurityConfig.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/service/AdvertisementService.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/entity/User.java
 /home/ghosthost/Workshop51-Full/backend/src/main/java/se/alex/lexicon/marketplace/service/impl/CustomUserDetailsService.java

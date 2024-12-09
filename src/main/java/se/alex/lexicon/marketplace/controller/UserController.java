@@ -1,8 +1,11 @@
 package se.alex.lexicon.marketplace.controller;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import jakarta.validation.Valid;
 import se.alex.lexicon.marketplace.dto.JwtResponse;
 import se.alex.lexicon.marketplace.dto.LoginRequest;
 import se.alex.lexicon.marketplace.dto.UserDTO;
+import se.alex.lexicon.marketplace.entity.User;
 import se.alex.lexicon.marketplace.service.UserService;
 
 @RestController
@@ -32,7 +36,7 @@ public class UserController {
         try {
             userService.registerUser(userDTO);
             return ResponseEntity.ok("User registered successfully");
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -43,8 +47,21 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userService.findAll();
+        return users.stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
+        User user = userService.save(modelMapper.map(userDTO, User.class));
+        return modelMapper.map(user, UserDTO.class);
+    }
+
     public ModelMapper getModelMapper() {
         return modelMapper;
     }
-
 }

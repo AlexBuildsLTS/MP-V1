@@ -3,7 +3,7 @@ package se.alex.lexicon.marketplace.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,34 +49,65 @@ public class Advertisement {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdDate;
+    private LocalDateTime createdAt;
+
+    // Getters and setters
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public Category getCategory() {
         return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public User getUser() {
         return user;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

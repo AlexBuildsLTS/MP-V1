@@ -1,8 +1,8 @@
 package se.alex.lexicon.marketplace.service;
 
-import se.alex.lexicon.marketplace.dto.AdvertisementDTO;
-
 import java.util.List;
+
+import se.alex.lexicon.marketplace.dto.AdvertisementDTO;
 
 public interface AdvertisementService {
     AdvertisementDTO createAdvertisement(AdvertisementDTO advertisementDTO, String username);

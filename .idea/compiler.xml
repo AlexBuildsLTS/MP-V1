@@ -12,14 +12,23 @@
         </processorPath>
         <module name="Marketplace" />
       </profile>
+      <profile name="Annotation profile for Marketplace (1)" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="Marketplace (1)" />
+      </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Marketplace (1)" target="21" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Marketplace" options="-parameters" />
+      <module name="Marketplace (1)" options="-parameters" />
     </option>
   </component>
 </project>
